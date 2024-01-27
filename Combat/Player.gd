@@ -43,4 +43,4 @@ func print_status():
 	print("Morale:" + String.num(morale))
 
 func string_status() -> String:
-	return "Morale:" + String.num(morale)
+	return String.num(morale)

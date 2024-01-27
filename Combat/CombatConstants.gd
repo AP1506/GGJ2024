@@ -3,3 +3,5 @@ extends Node
 class_name CombatConstants
 
 enum EMOTIONS {BORED, HAPPY, CRINGE, OFFENDED, ANNOYED}
+
+enum ATTACK {COMPLIMENT, CHEER_ON, TELL_PUN, TELL_JOKE}

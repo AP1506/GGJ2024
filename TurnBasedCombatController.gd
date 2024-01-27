@@ -1,7 +1,7 @@
 extends Node
 
-var player
-var enemy
+var player: Player
+var enemy: Enemy
 var target: Enemy
 
 var is_player_turn: bool
@@ -31,6 +31,20 @@ func init_scene(player_obj, enemy_obj):
 	update_ui_player()
 	update_ui_enemy(enemy)
 	
+	var attack_buttons = [$TurnBasedCombatUI/AttackOptionsUI/Attack1, $TurnBasedCombatUI/AttackOptionsUI/Attack2, $TurnBasedCombatUI/AttackOptionsUI/Attack3, $TurnBasedCombatUI/AttackOptionsUI/Attack4]
+	# Change attack names
+	attack_buttons[CombatConstants.ATTACK.COMPLIMENT].attack = CombatConstants.ATTACK.COMPLIMENT
+	attack_buttons[CombatConstants.ATTACK.COMPLIMENT].text = "Compliment"
+	
+	attack_buttons[CombatConstants.ATTACK.CHEER_ON].attack = CombatConstants.ATTACK.CHEER_ON
+	attack_buttons[CombatConstants.ATTACK.CHEER_ON].text = "Cheer on"
+	
+	attack_buttons[CombatConstants.ATTACK.TELL_JOKE].attack = CombatConstants.ATTACK.TELL_JOKE
+	attack_buttons[CombatConstants.ATTACK.TELL_JOKE].text = "Tell joke"
+	
+	attack_buttons[CombatConstants.ATTACK.TELL_PUN].attack = CombatConstants.ATTACK.TELL_PUN
+	attack_buttons[CombatConstants.ATTACK.TELL_PUN].text = "Tell pun"
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -43,13 +57,16 @@ func _process(delta):
 			play_enemy_turn(enemy)
 
 func update_ui_player():
-	$TurnBasedCombatUI/PlayerMood.text = "Player mood: " + player.string_status()
+	$TurnBasedCombatUI/PlayerMood.text = "Player morale: " + player.string_status()
 
 func update_ui_enemy(enemy: Enemy):
-	$TurnBasedCombatUI/EnemyMood.text = "Enemy mood: " + str(player.morale)
+	$TurnBasedCombatUI/EnemyMood.text = "Enemy mood: " + enemy.string_status()
+	$TurnBasedCombatUI/EnemyCurrMood.text = "Enemy mood: " + enemy.string_curr_mood()
 
 func play_player_turn():
+	$TurnBasedCombatUI/ColorRect.visible = true
 	$TurnBasedCombatUI/OptionsUI.visible = true
+	$TurnBasedCombatUI/AttackOptionsUI.visible = false
 
 func play_enemy_turn(enemy: Enemy):
 	$TurnBasedCombatUI/ColorRect.visible = false
@@ -61,6 +78,7 @@ func play_enemy_turn(enemy: Enemy):
 	update_ui_player()
 	
 	is_player_turn = true
+	start_next_turn = true
 
 func _on_attack_pressed():
 	$TurnBasedCombatUI/OptionsUI.visible = false
@@ -74,3 +92,15 @@ func _on_specific_attack_pressed(attack: int):
 	start_next_turn = true
 	is_player_turn = false
 	print("Attack" +  String.num(attack))
+	
+	match attack:
+		CombatConstants.ATTACK.COMPLIMENT:
+			player.compliment(target)
+		CombatConstants.ATTACK.CHEER_ON:
+			player.cheer_on(target)
+		CombatConstants.ATTACK.TELL_PUN:
+			player.tell_pun(target)
+		CombatConstants.ATTACK.TELL_JOKE:
+			player.tell_joke(target)
+	
+	update_ui_enemy(target)
