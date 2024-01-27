@@ -1,11 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://7dlwro72nimo"]
+[gd_scene load_steps=3 format=3 uid="uid://b8ntktn7yse24"]
 
 [ext_resource type="Script" path="res://TurnBasedCombatController.gd" id="1_upif5"]
+[ext_resource type="Script" path="res://Combat/GenericAttack.gd" id="2_nw7kv"]
 
-[node name="TurnBasedCombatScene" type="Node2D"]
+[node name="TurnBasedCombatScene" type="CanvasLayer"]
 script = ExtResource("1_upif5")
 
-[node name="TurnBasedCombatUI" type="CanvasLayer" parent="."]
+[node name="TurnBasedCombatUI" type="Node2D" parent="."]
 
 [node name="PlayerMood" type="Label" parent="TurnBasedCombatUI"]
 offset_left = 25.0
@@ -27,7 +28,7 @@ offset_top = 420.0
 offset_right = 1150.0
 offset_bottom = 653.0
 
-[node name="OptionsUI" type="CanvasLayer" parent="TurnBasedCombatUI"]
+[node name="OptionsUI" type="Node2D" parent="TurnBasedCombatUI"]
 
 [node name="Attack" type="Button" parent="TurnBasedCombatUI/OptionsUI"]
 offset_left = 261.0
@@ -42,3 +43,41 @@ offset_top = 493.0
 offset_right = 861.0
 offset_bottom = 553.0
 text = "RUN AWAY"
+
+[node name="AttackOptionsUI" type="Node2D" parent="TurnBasedCombatUI"]
+visible = false
+
+[node name="Attack1" type="Button" parent="TurnBasedCombatUI/AttackOptionsUI"]
+offset_left = 204.0
+offset_top = 458.0
+offset_right = 429.0
+offset_bottom = 518.0
+text = "RUN AWAY"
+script = ExtResource("2_nw7kv")
+
+[node name="Attack2" type="Button" parent="TurnBasedCombatUI/AttackOptionsUI"]
+offset_left = 658.0
+offset_top = 461.0
+offset_right = 883.0
+offset_bottom = 521.0
+text = "RUN AWAY"
+script = ExtResource("2_nw7kv")
+
+[node name="Attack3" type="Button" parent="TurnBasedCombatUI/AttackOptionsUI"]
+offset_left = 206.0
+offset_top = 553.0
+offset_right = 431.0
+offset_bottom = 613.0
+text = "RUN AWAY"
+script = ExtResource("2_nw7kv")
+
+[node name="Attack4" type="Button" parent="TurnBasedCombatUI/AttackOptionsUI"]
+offset_left = 664.0
+offset_top = 554.0
+offset_right = 889.0
+offset_bottom = 614.0
+text = "RUN AWAY"
+script = ExtResource("2_nw7kv")
+
+[connection signal="pressed" from="TurnBasedCombatUI/OptionsUI/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="TurnBasedCombatUI/OptionsUI/RunAway" to="." method="_on_run_away_pressed"]
