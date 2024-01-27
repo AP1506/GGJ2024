@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://7dlwro72nimo"]
+[gd_scene load_steps=3 format=3 uid="uid://b8ntktn7yse24"]
 
 [ext_resource type="Script" path="res://TurnBasedCombatController.gd" id="1_upif5"]
+[ext_resource type="Script" path="res://Combat/GenericAttack.gd" id="2_nw7kv"]
 
 [node name="TurnBasedCombatScene" type="Node2D"]
 script = ExtResource("1_upif5")
@@ -42,3 +43,41 @@ offset_top = 493.0
 offset_right = 861.0
 offset_bottom = 553.0
 text = "RUN AWAY"
+
+[node name="AttackOptionsUI" type="CanvasLayer" parent="TurnBasedCombatUI"]
+visible = false
+
+[node name="Attack1" type="Button" parent="TurnBasedCombatUI/AttackOptionsUI"]
+offset_left = 204.0
+offset_top = 458.0
+offset_right = 429.0
+offset_bottom = 518.0
+text = "RUN AWAY"
+script = ExtResource("2_nw7kv")
+
+[node name="Attack2" type="Button" parent="TurnBasedCombatUI/AttackOptionsUI"]
+offset_left = 704.0
+offset_top = 460.0
+offset_right = 929.0
+offset_bottom = 520.0
+text = "RUN AWAY"
+
+[node name="Attack3" type="Button" parent="TurnBasedCombatUI/AttackOptionsUI"]
+offset_left = 204.0
+offset_top = 558.0
+offset_right = 429.0
+offset_bottom = 618.0
+text = "RUN AWAY"
+
+[node name="Attack4" type="Button" parent="TurnBasedCombatUI/AttackOptionsUI"]
+offset_left = 706.0
+offset_top = 555.0
+offset_right = 931.0
+offset_bottom = 615.0
+text = "RUN AWAY"
+
+[connection signal="pressed" from="TurnBasedCombatUI/OptionsUI/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="TurnBasedCombatUI/OptionsUI/RunAway" to="." method="_on_run_away_pressed"]
+[connection signal="pressed" from="TurnBasedCombatUI/AttackOptionsUI/Attack2" to="." method="_on_attack2_pressed"]
+[connection signal="pressed" from="TurnBasedCombatUI/AttackOptionsUI/Attack3" to="." method="_on_attack3_pressed"]
+[connection signal="pressed" from="TurnBasedCombatUI/AttackOptionsUI/Attack4" to="." method="_on_attack4_pressed"]

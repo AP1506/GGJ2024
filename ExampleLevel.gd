@@ -9,6 +9,7 @@ extends Node2D
 # Scene to preload
 var combat_scene = preload("res://turn_based_combat_scene.tscn")
 var player_scene = preload("res://player_example.tscn")
+var enemy_scene = preload("res://objects/enemy.tscn")
 
 var player
 var enemy
@@ -17,9 +18,7 @@ var combat_scene_instance
 # Create example player and enemy objects
 func _ready():
 	player = player_scene.instantiate()
-	enemy = player_scene.instantiate()
-	player.mood = 20
-	enemy.mood = 0
+	enemy = enemy_scene.instantiate()
 	
 	# Instantiate turn based combat scene
 	combat_scene_instance = combat_scene.instantiate()
