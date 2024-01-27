@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://crxkupwilxegb"]
+
+[ext_resource type="Script" path="res://Combat/Player.gd" id="1_226pe"]
+[ext_resource type="Texture2D" uid="uid://qxm84leujcqm" path="res://sprites/icon.svg" id="2_mb616"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ktip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mb616")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ffig"]
+size = Vector2(127, 125.5)
+
+[node name="PlayerExample" type="Area2D"]
+script = ExtResource("1_226pe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(315, 450)
+sprite_frames = SubResource("SpriteFrames_4ktip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(315.5, 450.75)
+shape = SubResource("RectangleShape2D_8ffig")
