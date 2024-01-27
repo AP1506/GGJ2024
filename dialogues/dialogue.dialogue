@@ -1,0 +1,19 @@
+~ this_is_a_node_title
+
+if has_met_nathan == false
+	Nathan: Hello!
+	set has_met_nathan = true
+else
+	Nathan: Hello again!
+do move_over_there()
+Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
+Nathan: Here are some choices.
+- First one
+	Nathan: You picked the first one.
+- Second one
+	Nathan: You picked the second one.
+- Start again => this_is_a_node_title
+- End the conversation => END
+Nathan: For more information see the online documentation.
+
+=> END
