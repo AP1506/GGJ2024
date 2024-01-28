@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dg6abniqosmte"]
+[gd_scene load_steps=6 format=3 uid="uid://dg6abniqosmte"]
 
 [ext_resource type="PackedScene" uid="uid://beasxf3c52vnr" path="res://objects/Floor.tscn" id="1_amp45"]
 [ext_resource type="PackedScene" uid="uid://6ib8bqklg620" path="res://scenes/Player.tscn" id="1_y1pin"]
 [ext_resource type="PackedScene" uid="uid://cplx7v1iripfb" path="res://objects/Wall.tscn" id="2_tim5p"]
 [ext_resource type="PackedScene" uid="uid://bn1kwjnbvqxhc" path="res://objects/Platform.tscn" id="3_t5ppc"]
+[ext_resource type="PackedScene" uid="uid://cecg035hpgo3e" path="res://scenes/enemyOutside.tscn" id="5_wgbkw"]
 
 [node name="Level1" type="Node2D"]
 position = Vector2(0, 3)
@@ -13,7 +14,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Floor" parent="Layout" instance=ExtResource("1_amp45")]
-position = Vector2(-948, 1870)
+position = Vector2(-948, 1878)
 scale = Vector2(27.0998, -17.6271)
 
 [node name="Wall" parent="Layout" instance=ExtResource("2_tim5p")]
@@ -25,7 +26,8 @@ position = Vector2(1557, -4952)
 scale = Vector2(31.374, 81.1786)
 
 [node name="Platform" parent="Layout" instance=ExtResource("3_t5ppc")]
-position = Vector2(-1, 830)
+position = Vector2(-13, 830)
+scale = Vector2(1.28442, 0.834428)
 
 [node name="Platform3" parent="Layout" instance=ExtResource("3_t5ppc")]
 position = Vector2(-3, 314)
@@ -73,3 +75,6 @@ scale = Vector2(7.90869, -58.0712)
 
 [node name="PlayerExample" parent="." instance=ExtResource("1_y1pin")]
 position = Vector2(780, 1074)
+
+[node name="EnemyOutside" parent="." instance=ExtResource("5_wgbkw")]
+position = Vector2(1340, -2238)
