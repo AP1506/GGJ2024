@@ -2,11 +2,11 @@ extends Node
 
 class_name Enemy
 
-var emotion_pts: Array = [0, 0, 0, 0, 0]
+@export var emotion_pts: Array = [0, 0, 0, 0, 0]
 var curr_emotion: int = -1
 
 func _ready():
-	pass
+	update_curr_emotion()
 
 func attack(target: Player):
 	target.morale -= 2
@@ -14,6 +14,9 @@ func attack(target: Player):
 func mod_emotion(emotion: int, new_value):
 	if new_value >= 0 && new_value <= 20:
 		emotion_pts[emotion] = new_value
+		update_curr_emotion()
+	elif new_value > 20:
+		emotion_pts[emotion] = 20
 		update_curr_emotion()
 
 func update_curr_emotion():
