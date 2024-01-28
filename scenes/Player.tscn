@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://6ib8bqklg620"]
 
 [ext_resource type="Script" path="res://Combat/Player.gd" id="1_226pe"]
-[ext_resource type="Texture2D" uid="uid://qxm84leujcqm" path="res://sprites/icon.svg" id="2_mb616"]
+[ext_resource type="Texture2D" uid="uid://b8sgs0naahv4h" path="res://sprites/pixelPlayerRunRight01.png" id="2_yotab"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4ktip"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_mb616")
+"texture": ExtResource("2_yotab")
 }],
 "loop": true,
 "name": &"default",
@@ -22,7 +22,8 @@ position = Vector2(0, 3)
 script = ExtResource("1_226pe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(5, 1)
+position = Vector2(6, 2)
+scale = Vector2(0.246094, 0.246094)
 sprite_frames = SubResource("SpriteFrames_4ktip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

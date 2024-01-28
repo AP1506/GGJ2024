@@ -1,31 +1,118 @@
-[gd_scene load_steps=5 format=3 uid="uid://cecg035hpgo3e"]
+[gd_scene load_steps=14 format=3 uid="uid://cecg035hpgo3e"]
 
 [ext_resource type="Script" path="res://scenes/enemyOutside.gd" id="1_4g010"]
-[ext_resource type="Texture2D" uid="uid://qxm84leujcqm" path="res://sprites/icon.svg" id="2_cq3ug"]
+[ext_resource type="Texture2D" uid="uid://cxyndae24huwy" path="res://sprites/frog_64x64.png" id="2_gbr6c"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_7e250"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekaam"]
+atlas = ExtResource("2_gbr6c")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulb4h"]
+atlas = ExtResource("2_gbr6c")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35gj2"]
+atlas = ExtResource("2_gbr6c")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2o865"]
+atlas = ExtResource("2_gbr6c")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aayl0"]
+atlas = ExtResource("2_gbr6c")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7d1rc"]
+atlas = ExtResource("2_gbr6c")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mltiq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_cq3ug")
+"texture": SubResource("AtlasTexture_ekaam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulb4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35gj2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2o865")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aayl0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7d1rc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekaam")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_j2ndg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ab5dk"]
+resource_name = "hit1"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 1, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5, 0), Vector2(-5, 0), Vector2(10, 0), Vector2(5, 0), Vector2(5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fson3"]
+_data = {
+"RESET": SubResource("Animation_j2ndg"),
+"hit1": SubResource("Animation_ab5dk")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0h68g"]
-size = Vector2(131, 127)
+size = Vector2(114.5, 106)
 
 [node name="EnemyOutside" type="Area2D"]
 script = ExtResource("1_4g010")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(5, 1)
-sprite_frames = SubResource("SpriteFrames_7e250")
+position = Vector2(-5.15625, -3.8147e-06)
+scale = Vector2(2.03125, 2.03125)
+sprite_frames = SubResource("SpriteFrames_mltiq")
+frame_progress = 0.614867
+offset = Vector2(5, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_fson3")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(5.5, 0.5)
+position = Vector2(6, 2)
 shape = SubResource("RectangleShape2D_0h68g")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
