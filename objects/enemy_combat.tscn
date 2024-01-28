@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cflmrdhbidfiu"]
 
-[ext_resource type="Script" path="res://Combat/Enemy.gd" id="1_m8y1n"]
 [ext_resource type="Texture2D" uid="uid://cxyndae24huwy" path="res://sprites/frog_64x64.png" id="1_ooe0g"]
+[ext_resource type="Script" path="res://Combat/EnemyCombat.gd" id="2_elvyb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ekaam"]
 atlas = ExtResource("1_ooe0g")
@@ -27,12 +27,23 @@ region = Rect2(256, 0, 64, 64)
 atlas = ExtResource("1_ooe0g")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3hiyu"]
-atlas = ExtResource("1_ooe0g")
-region = Rect2(0, 0, 64, 64)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_bvi44"]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"borzoi_default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"cat_default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"ferret_default",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ekaam")
@@ -52,37 +63,18 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7d1rc")
 }, {
-"duration": 1.0,
+"duration": 10.0,
 "texture": SubResource("AtlasTexture_ekaam")
 }],
 "loop": false,
-"name": &"attack_animation1",
+"name": &"frog_default",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3hiyu")
-}],
+"frames": [],
 "loop": true,
-"name": &"default",
+"name": &"sheep_default",
 "speed": 5.0
 }]
-
-[sub_resource type="Animation" id="Animation_ab5dk"]
-resource_name = "hit1"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6, 1, 1.4, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(5, 0), Vector2(-5, 0), Vector2(10, 0), Vector2(5, 0), Vector2(5, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_j2ndg"]
 length = 0.001
@@ -99,18 +91,49 @@ tracks/0/keys = {
 "values": [Vector2(5, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ab5dk"]
+resource_name = "hit_animation"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 1, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5, 0), Vector2(-5, 0), Vector2(10, 0), Vector2(5, 0), Vector2(5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_btofv"]
+resource_name = "attack_animation1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fson3"]
 _data = {
 "RESET": SubResource("Animation_j2ndg"),
-"hit1": SubResource("Animation_ab5dk")
+"attack_animation1": SubResource("Animation_btofv"),
+"hit_animation": SubResource("Animation_ab5dk")
 }
 
 [node name="EnemyCombat" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_bvi44")
-animation = &"attack_animation1"
-autoplay = "default"
+animation = &"borzoi_default"
 offset = Vector2(5, 0)
-script = ExtResource("1_m8y1n")
+script = ExtResource("2_elvyb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cecg035hpgo3e"]
+[gd_scene load_steps=3 format=3 uid="uid://cecg035hpgo3e"]
 
 [ext_resource type="Script" path="res://Combat/Enemy.gd" id="1_wp8pg"]
 
-[node name="Enemy" type="Node2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_dpsjd"]
+
+[node name="Enemy" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_dpsjd")
 script = ExtResource("1_wp8pg")
-emotion_pts = [0, 0, 20, 0, 0]

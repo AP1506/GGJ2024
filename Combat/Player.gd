@@ -5,8 +5,6 @@ class_name Player
 @export var gravity : float = 55
 @export var jump_force : int = 1600
 
-
-
 # ----------- MOVEMENT ------------ #
 	
 func _physics_process(_delta):
