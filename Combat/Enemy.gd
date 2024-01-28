@@ -1,6 +1,9 @@
-extends Node
+extends AnimatedSprite2D
 
 class_name Enemy
+
+# Signals that a single action was completed
+signal action_ended
 
 @export var emotion_pts: Array = [0, 0, 0, 0, 0]
 var curr_emotion: int = -1
@@ -8,8 +11,12 @@ var curr_emotion: int = -1
 func _ready():
 	update_curr_emotion()
 
-func attack(target: Player):
+func attack(target: PlayerCombat):
 	target.morale -= 2
+	play("attack_animation1")
+	
+	target.connect_hit_animation(self)
+	
 
 func mod_emotion(emotion: int, new_value):
 	if new_value >= 0 && new_value <= 20:
@@ -60,3 +67,13 @@ func string_curr_mood() -> String:
 		_:
 			return "NEUTRAL"
 		
+func connect_hit_animation(attacker: PlayerCombat):
+	attacker.animation_finished.connect(_on_hit, 4)
+
+func _on_hit():
+	play("attack_animation1")
+	
+	animation_finished.connect(_on_finished_hit, 4)
+
+func _on_finished_hit():
+	action_ended.emit()

@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://cen7m0niqo16o"]
+
+[ext_resource type="Texture2D" uid="uid://vxjbik25gn3o" path="res://sprites/brozoi_64x64.png" id="1_4ok2k"]
+[ext_resource type="Script" path="res://Combat/PlayerCombat.gd" id="2_qmjmn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oiv6v"]
+atlas = ExtResource("1_4ok2k")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tha7f"]
+atlas = ExtResource("1_4ok2k")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dl6l"]
+atlas = ExtResource("1_4ok2k")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxk0b"]
+atlas = ExtResource("1_4ok2k")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmdi5"]
+atlas = ExtResource("1_4ok2k")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uad7s"]
+atlas = ExtResource("1_4ok2k")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7vn6"]
+atlas = ExtResource("1_4ok2k")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ol7ey"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oiv6v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tha7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dl6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxk0b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmdi5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uad7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7vn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tha7f")
+}],
+"loop": false,
+"name": &"hit_animation",
+"speed": 5.0
+}]
+
+[node name="PlayerCombat" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_ol7ey")
+animation = &"hit_animation"
+autoplay = "default"
+script = ExtResource("2_qmjmn")

@@ -2,6 +2,10 @@ extends Node
 
 var player: Player
 var enemy: Enemy
+
+var player_combat: PlayerCombat
+var enemy_combat: Enemy
+
 var target: Enemy
 
 var is_player_turn: bool
@@ -13,7 +17,7 @@ var start_next_turn: bool
 func _ready():
 	#$TurnBasedCombatUI/PlayerMood.text = ""
 	
-	var attack_buttons = [$TurnBasedCombatUI/AttackOptionsUI/Attack1, $TurnBasedCombatUI/AttackOptionsUI/Attack2, $TurnBasedCombatUI/AttackOptionsUI/Attack3, $TurnBasedCombatUI/AttackOptionsUI/Attack4]
+	var attack_buttons = [$AllUI/TurnBasedCombatUI/AttackOptionsUI/Attack1, $AllUI/TurnBasedCombatUI/AttackOptionsUI/Attack2, $AllUI/TurnBasedCombatUI/AttackOptionsUI/Attack3, $AllUI/TurnBasedCombatUI/AttackOptionsUI/Attack4]
 	
 	attack_buttons[0].pressed.connect(_on_specific_attack_pressed.bind(attack_buttons[0].attack))
 	attack_buttons[1].pressed.connect(_on_specific_attack_pressed.bind(attack_buttons[1].attack))
@@ -24,14 +28,22 @@ func _ready():
 func init_scene(player_obj, enemy_obj):
 	player = player_obj
 	enemy = enemy_obj
-	target = enemy
+	
+	player_combat = $Entities/PlayerCombat
+	enemy_combat = $Entities/EnemyCombat
+	
+	# Connecting action end to change of turn
+	player_combat.action_ended.connect(_on_action_ended)
+	enemy_combat.action_ended.connect(_on_action_ended)
+	
+	target = enemy_combat
 	
 	is_player_turn = true
 	
 	update_ui_player()
-	update_ui_enemy(enemy)
+	update_ui_enemy(enemy_combat)
 	
-	var attack_buttons = [$TurnBasedCombatUI/AttackOptionsUI/Attack1, $TurnBasedCombatUI/AttackOptionsUI/Attack2, $TurnBasedCombatUI/AttackOptionsUI/Attack3, $TurnBasedCombatUI/AttackOptionsUI/Attack4]
+	var attack_buttons = [$AllUI/TurnBasedCombatUI/AttackOptionsUI/Attack1, $AllUI/TurnBasedCombatUI/AttackOptionsUI/Attack2, $AllUI/TurnBasedCombatUI/AttackOptionsUI/Attack3, $AllUI/TurnBasedCombatUI/AttackOptionsUI/Attack4]
 	# Change attack names
 	attack_buttons[CombatConstants.ATTACK.COMPLIMENT].attack = CombatConstants.ATTACK.COMPLIMENT
 	attack_buttons[CombatConstants.ATTACK.COMPLIMENT].text = "Compliment"
@@ -57,50 +69,56 @@ func _process(delta):
 			play_enemy_turn(enemy)
 
 func update_ui_player():
-	$TurnBasedCombatUI/PlayerMood.text = "Player morale: " + player.string_status()
+	$AllUI/TurnBasedCombatUI/PlayerMood.text = "Player morale: " + player_combat.string_status()
 
 func update_ui_enemy(enemy: Enemy):
-	$TurnBasedCombatUI/EnemyMood.text = "Enemy mood: " + enemy.string_status()
-	$TurnBasedCombatUI/EnemyCurrMood.text = "Enemy mood: " + enemy.string_curr_mood()
+	$AllUI/TurnBasedCombatUI/EnemyMood.text = "Enemy mood: " + enemy_combat.string_status()
+	$AllUI/TurnBasedCombatUI/EnemyCurrMood.text = "Enemy mood: " + enemy_combat.string_curr_mood()
 
 func play_player_turn():
-	$TurnBasedCombatUI/ColorRect.visible = true
-	$TurnBasedCombatUI/OptionsUI.visible = true
-	$TurnBasedCombatUI/AttackOptionsUI.visible = false
+	$AllUI/TurnBasedCombatUI/ColorRect.visible = true
+	$AllUI/TurnBasedCombatUI/OptionsUI.visible = true
+	$AllUI/TurnBasedCombatUI/AttackOptionsUI.visible = false
+	
+	# Wait for signal that player made a choice
 
 func play_enemy_turn(enemy: Enemy):
-	$TurnBasedCombatUI/ColorRect.visible = false
-	$TurnBasedCombatUI/OptionsUI.visible = false
-	$TurnBasedCombatUI/AttackOptionsUI.visible = false
+	$AllUI/TurnBasedCombatUI/ColorRect.visible = false
+	$AllUI/TurnBasedCombatUI/OptionsUI.visible = false
+	$AllUI/TurnBasedCombatUI/AttackOptionsUI.visible = false
 	
-	enemy.attack(player)
+	enemy_combat.attack(player_combat)
 	
 	update_ui_player()
-	
-	is_player_turn = true
-	start_next_turn = true
 
 func _on_attack_pressed():
-	$TurnBasedCombatUI/OptionsUI.visible = false
-	$TurnBasedCombatUI/AttackOptionsUI.visible = true
+	$AllUI/TurnBasedCombatUI/OptionsUI.visible = false
+	$AllUI/TurnBasedCombatUI/AttackOptionsUI.visible = true
 	print("Attack button pressed!")
 
 func _on_run_away_pressed():
 	print("Run away button pressed")
 
 func _on_specific_attack_pressed(attack: int):
-	start_next_turn = true
-	is_player_turn = false
 	print("Attack" +  String.num(attack))
 	
 	match attack:
 		CombatConstants.ATTACK.COMPLIMENT:
-			player.compliment(target)
+			player_combat.compliment(target)
 		CombatConstants.ATTACK.CHEER_ON:
-			player.cheer_on(target)
+			player_combat.cheer_on(target)
 		CombatConstants.ATTACK.TELL_PUN:
-			player.tell_pun(target)
+			player_combat.tell_pun(target)
 		CombatConstants.ATTACK.TELL_JOKE:
-			player.tell_joke(target)
+			player_combat.tell_joke(target)
 	
 	update_ui_enemy(target)
+	
+	# Disable UI options while attack is being undergone
+	$AllUI/TurnBasedCombatUI/ColorRect.visible = false
+	$AllUI/TurnBasedCombatUI/OptionsUI.visible = false
+	$AllUI/TurnBasedCombatUI/AttackOptionsUI.visible = false
+
+func _on_action_ended():
+	start_next_turn = true
+	is_player_turn = not is_player_turn

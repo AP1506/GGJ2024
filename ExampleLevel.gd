@@ -9,7 +9,7 @@ extends Node2D
 # Scene to preload
 var combat_scene = preload("res://turn_based_combat_scene.tscn")
 var player_scene = preload("res://scenes/Player.tscn")
-var enemy_scene = preload("res://objects/enemy.tscn")
+var enemy_scene = preload("res://objects/enemy_combat.tscn")
 
 var player
 var enemy
