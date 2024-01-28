@@ -18,12 +18,17 @@ animations = [{
 size = Vector2(127, 125.5)
 
 [node name="PlayerExample" type="CharacterBody2D"]
+position = Vector2(0, 3)
 script = ExtResource("1_226pe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(315, 450)
+position = Vector2(5, 1)
 sprite_frames = SubResource("SpriteFrames_4ktip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(315.5, 450.75)
+position = Vector2(5.5, 1.75)
 shape = SubResource("RectangleShape2D_8ffig")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+position = Vector2(0, -187)
+zoom = Vector2(0.5, 0.5)

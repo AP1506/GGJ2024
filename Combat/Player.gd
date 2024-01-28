@@ -5,12 +5,21 @@ class_name Player
 @export var gravity : float = 55
 @export var jump_force : int = 1600
 
+var camera2d
+var init_camera_x_pos
 
-
-# ----------- MOVEMENT ------------ #
+func _ready():
+	camera2d = $PlayerCamera
+	init_camera_x_pos = camera2d.global_position.x
+	
+func _process(delta):
+	# Fix the Camera2D in the x-direction
+	#var new_offset = Vector2(global_position.x, camera2d.offset.y)
+	#camera2d.offset = new_offset
+	
+	$PlayerCamera.global_position.x = init_camera_x_pos
 	
 func _physics_process(_delta):
-	
 	if not is_on_floor():
 		velocity.y += gravity
 		if velocity.y > 2000:
