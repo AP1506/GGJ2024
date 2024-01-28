@@ -5,6 +5,7 @@ class_name Player
 @export var gravity : float = 55
 @export var jump_force : int = 1600
 
+# ----------- MOVEMENT ------------ #
 var camera2d
 var init_camera_x_pos
 

@@ -1,12 +1,9 @@
 extends Node
 
-var player: Player
-var enemy: Enemy
-
 var player_combat: PlayerCombat
-var enemy_combat: Enemy
+var enemy_combat: EnemyCombat
 
-var target: Enemy
+var target: EnemyCombat
 
 var is_player_turn: bool
 
@@ -24,13 +21,18 @@ func _ready():
 	attack_buttons[2].pressed.connect(_on_specific_attack_pressed.bind(attack_buttons[2].attack))
 	attack_buttons[3].pressed.connect(_on_specific_attack_pressed.bind(attack_buttons[3].attack))
 	
+	enemy_combat.position = $Entities/EnemyCombat.position
+	enemy_combat.scale = $Entities/EnemyCombat.scale
+	$Entities.add_child(enemy_combat)
 
 func init_scene(player_obj, enemy_obj):
-	player = player_obj
-	enemy = enemy_obj
+	var player = player_obj
+	var enemy = enemy_obj
 	
 	player_combat = $Entities/PlayerCombat
-	enemy_combat = $Entities/EnemyCombat
+	
+	enemy_combat = enemy.create_enemy_combat()
+	enemy_combat.copy_properties(enemy)
 	
 	# Connecting action end to change of turn
 	player_combat.action_ended.connect(_on_action_ended)
@@ -66,12 +68,12 @@ func _process(delta):
 		if is_player_turn:
 			play_player_turn()
 		else:
-			play_enemy_turn(enemy)
+			play_enemy_turn(enemy_combat)
 
 func update_ui_player():
 	$AllUI/TurnBasedCombatUI/PlayerMood.text = "Player morale: " + player_combat.string_status()
 
-func update_ui_enemy(enemy: Enemy):
+func update_ui_enemy(enemy: EnemyCombat):
 	# Update text for enemy moods
 	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/Annoyed.text = String.num(enemy.emotion_pts[CombatConstants.EMOTIONS.ANNOYED])
 	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/Cringe.text = String.num(enemy.emotion_pts[CombatConstants.EMOTIONS.CRINGE])
@@ -95,7 +97,7 @@ func play_player_turn():
 	
 	# Wait for signal that player made a choice
 
-func play_enemy_turn(enemy: Enemy):
+func play_enemy_turn(enemy: EnemyCombat):
 	$AllUI/TurnBasedCombatUI/ColorRect.visible = false
 	$AllUI/TurnBasedCombatUI/OptionsUI.visible = false
 	$AllUI/TurnBasedCombatUI/AttackOptionsUI.visible = false

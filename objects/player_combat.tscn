@@ -3,10 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://vxjbik25gn3o" path="res://sprites/brozoi_64x64.png" id="1_4ok2k"]
 [ext_resource type="Script" path="res://Combat/PlayerCombat.gd" id="2_qmjmn"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oiv6v"]
-atlas = ExtResource("1_4ok2k")
-region = Rect2(0, 0, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_tha7f"]
 atlas = ExtResource("1_4ok2k")
 region = Rect2(0, 0, 64, 64)
@@ -31,16 +27,12 @@ region = Rect2(256, 0, 64, 64)
 atlas = ExtResource("1_4ok2k")
 region = Rect2(320, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_oiv6v"]
+atlas = ExtResource("1_4ok2k")
+region = Rect2(0, 0, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ol7ey"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oiv6v")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tha7f")
@@ -64,9 +56,32 @@ animations = [{
 "texture": SubResource("AtlasTexture_tha7f")
 }],
 "loop": false,
-"name": &"hit_animation",
+"name": &"attack_animation1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oiv6v")
+}],
+"loop": true,
+"name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="Animation" id="Animation_j2ndg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ab5dk"]
 resource_name = "hit1"
@@ -84,21 +99,6 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(5, 0), Vector2(-5, 0), Vector2(10, 0), Vector2(5, 0), Vector2(5, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_j2ndg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(5, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fson3"]
 _data = {
 "RESET": SubResource("Animation_j2ndg"),
@@ -108,7 +108,7 @@ _data = {
 [node name="PlayerCombat" type="AnimatedSprite2D"]
 position = Vector2(-10, 0)
 sprite_frames = SubResource("SpriteFrames_ol7ey")
-animation = &"hit_animation"
+animation = &"attack_animation1"
 autoplay = "default"
 offset = Vector2(5, 0)
 script = ExtResource("2_qmjmn")
