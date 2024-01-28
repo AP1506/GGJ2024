@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8ntktn7yse24"]
+[gd_scene load_steps=6 format=3 uid="uid://b8ntktn7yse24"]
 
 [ext_resource type="Script" path="res://TurnBasedCombatController.gd" id="1_upif5"]
+[ext_resource type="Script" path="res://Combat/moodPoly.gd" id="2_mnubs"]
 [ext_resource type="Script" path="res://Combat/GenericAttack.gd" id="2_nw7kv"]
 [ext_resource type="PackedScene" uid="uid://cflmrdhbidfiu" path="res://objects/enemy_combat.tscn" id="3_5yxue"]
 [ext_resource type="PackedScene" uid="uid://cen7m0niqo16o" path="res://objects/player_combat.tscn" id="4_6ea15"]
@@ -13,27 +14,115 @@ script = ExtResource("1_upif5")
 [node name="TurnBasedCombatUI" type="Node2D" parent="AllUI"]
 
 [node name="PlayerMood" type="Label" parent="AllUI/TurnBasedCombatUI"]
-offset_left = 25.0
-offset_top = 13.0
-offset_right = 238.0
-offset_bottom = 61.0
+offset_left = 375.0
+offset_top = 386.0
+offset_right = 588.0
+offset_bottom = 434.0
 text = "PLAYER MOOD:"
 metadata/_edit_use_anchors_ = true
 
-[node name="EnemyMood" type="Label" parent="AllUI/TurnBasedCombatUI"]
-offset_left = 22.0
-offset_top = 73.0
-offset_right = 235.0
-offset_bottom = 121.0
-text = "ENEMY MOOD:
-"
+[node name="EnemyMood" type="Node2D" parent="AllUI/TurnBasedCombatUI"]
 metadata/_edit_use_anchors_ = true
 
+[node name="Progress" type="Polygon2D" parent="AllUI/TurnBasedCombatUI/EnemyMood"]
+position = Vector2(-17, 73)
+scale = Vector2(17.5546, 17.0669)
+color = Color(0.196078, 0.196078, 0.196078, 1)
+polygon = PackedVector2Array(7, -3, 11.5833, 0.857143, 10, 6, 4, 6, 2, 0.857143)
+
+[node name="AnnoyedPoly" type="Polygon2D" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+color = Color(0.517647, 0.2, 0.12549, 1)
+texture_rotation = -4.57974
+polygon = PackedVector2Array(6.89279, -3.04682, 6.89279, 1.81638, 1.99378, 0.820299)
+script = ExtResource("2_mnubs")
+
+[node name="Annoyed" type="Label" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+offset_left = 4.84204
+offset_top = -0.820299
+offset_right = 44.842
+offset_bottom = 22.1797
+scale = Vector2(0.0603104, 0.0603104)
+text = "23"
+
+[node name="CringePoly" type="Polygon2D" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+color = Color(0.435294, 0.737255, 0.356863, 1)
+texture_rotation = -4.57974
+polygon = PackedVector2Array(6.89279, -3.16401, 6.89279, 1.81638, 11.45, 0.820299)
+script = ExtResource("2_mnubs")
+
+[node name="Cringe" type="Label" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+offset_left = 7.80423
+offset_top = -0.820299
+offset_right = 47.8042
+offset_bottom = 22.1797
+scale = Vector2(0.0603104, 0.0603104)
+text = "23"
+
+[node name="OffendedPoly" type="Polygon2D" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+color = Color(1, 0.454902, 0.392157, 1)
+texture_rotation = -4.57974
+polygon = PackedVector2Array(9.91195, 6.03506, 6.89279, 1.81638, 11.393, 0.820299)
+script = ExtResource("2_mnubs")
+
+[node name="Offended" type="Label" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+offset_left = 8.60174
+offset_top = 2.22653
+offset_right = 48.6017
+offset_bottom = 25.2265
+scale = Vector2(0.0603104, 0.0603104)
+text = "23"
+
+[node name="BoredPoly" type="Polygon2D" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+color = Color(0.666667, 0.635294, 0.666667, 1)
+texture_rotation = -4.57974
+polygon = PackedVector2Array(10.0259, 6.03506, 6.89279, 1.81638, 3.98756, 5.91787)
+script = ExtResource("2_mnubs")
+
+[node name="Bored" type="Label" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+offset_left = 5.81043
+offset_top = 4.0429
+offset_right = 45.8104
+offset_bottom = 27.0429
+scale = Vector2(0.0603104, 0.0603104)
+text = "23"
+horizontal_alignment = 1
+
+[node name="HappyPoly" type="Polygon2D" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+color = Color(0.74902, 0.635294, 0.329412, 1)
+texture_rotation = -4.57974
+polygon = PackedVector2Array(2.05075, 0.761706, 6.89279, 1.81638, 3.98756, 6.03506)
+script = ExtResource("2_mnubs")
+
+[node name="Happy" type="Label" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+offset_left = 3.19005
+offset_top = 1.75778
+offset_right = 43.1901
+offset_bottom = 24.7578
+scale = Vector2(0.0603104, 0.0603104)
+text = "23"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+points = PackedVector2Array(6.94975, -3.04682, 2.05075, 0.761706, 6.83582, 1.87497, 3.98756, 5.91787, 9.96891, 5.97646, 6.83582, 1.93356, 11.507, 0.820299, 6.94975, -3.04682, 6.83582, 1.87497)
+width = 0.2
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+points = PackedVector2Array(2.05075, 0.644521, 3.98756, 5.97646)
+width = 0.2
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D3" type="Line2D" parent="AllUI/TurnBasedCombatUI/EnemyMood/Progress"]
+position = Vector2(9.45622, 0.117186)
+points = PackedVector2Array(2.05075, 0.644521, 0.455723, 5.85928)
+width = 0.2
+default_color = Color(0, 0, 0, 1)
+
 [node name="EnemyCurrMood" type="Label" parent="AllUI/TurnBasedCombatUI"]
-offset_left = 20.0
-offset_top = 117.0
-offset_right = 233.0
-offset_bottom = 165.0
+offset_left = 170.0
+offset_top = 10.0
+offset_right = 383.0
+offset_bottom = 58.0
 text = "ENEMY CURRENT MOOD:
 "
 metadata/_edit_use_anchors_ = true
@@ -101,6 +190,13 @@ text = "ATTACK 4"
 script = ExtResource("2_nw7kv")
 metadata/_edit_use_anchors_ = true
 
+[node name="Back" type="Button" parent="AllUI/TurnBasedCombatUI/AttackOptionsUI"]
+offset_left = 1068.0
+offset_top = 425.0
+offset_right = 1113.0
+offset_bottom = 456.0
+text = "Back"
+
 [node name="Entities" type="CanvasLayer" parent="."]
 
 [node name="EnemyCombat" parent="Entities" instance=ExtResource("3_5yxue")]
@@ -114,3 +210,4 @@ frame_progress = 0.629349
 
 [connection signal="pressed" from="AllUI/TurnBasedCombatUI/OptionsUI/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="AllUI/TurnBasedCombatUI/OptionsUI/RunAway" to="." method="_on_run_away_pressed"]
+[connection signal="pressed" from="AllUI/TurnBasedCombatUI/AttackOptionsUI/Back" to="." method="_on_attack_back_pressed"]

@@ -8,7 +8,7 @@ signal action_ended
 @export var emotion_pts: Array = [0, 0, 0, 0, 0]
 var curr_emotion: int = -1
 
-func _ready():
+func _init():
 	update_curr_emotion()
 
 func attack(target: PlayerCombat):
@@ -71,9 +71,12 @@ func connect_hit_animation(attacker: PlayerCombat):
 	attacker.animation_finished.connect(_on_hit, 4)
 
 func _on_hit():
-	play("attack_animation1")
+	$AnimationPlayer.play("hit1")
 	
-	animation_finished.connect(_on_finished_hit, 4)
+	$AnimationPlayer.animation_finished.connect(_on_finished_hit2, 4)
 
 func _on_finished_hit():
+	action_ended.emit()
+
+func _on_finished_hit2(anim_name):
 	action_ended.emit()

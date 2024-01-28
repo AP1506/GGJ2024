@@ -2,6 +2,8 @@ extends Node
 
 class_name CombatConstants
 
+const MAX_EMOTION_PTS = 20
+
 enum EMOTIONS {BORED, HAPPY, CRINGE, OFFENDED, ANNOYED}
 
 enum ATTACK {COMPLIMENT, CHEER_ON, TELL_PUN, TELL_JOKE}

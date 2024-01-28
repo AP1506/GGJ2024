@@ -72,7 +72,20 @@ func update_ui_player():
 	$AllUI/TurnBasedCombatUI/PlayerMood.text = "Player morale: " + player_combat.string_status()
 
 func update_ui_enemy(enemy: Enemy):
-	$AllUI/TurnBasedCombatUI/EnemyMood.text = "Enemy mood: " + enemy_combat.string_status()
+	# Update text for enemy moods
+	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/Annoyed.text = String.num(enemy.emotion_pts[CombatConstants.EMOTIONS.ANNOYED])
+	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/Cringe.text = String.num(enemy.emotion_pts[CombatConstants.EMOTIONS.CRINGE])
+	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/Offended.text = String.num(enemy.emotion_pts[CombatConstants.EMOTIONS.OFFENDED])
+	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/Bored.text = String.num(enemy.emotion_pts[CombatConstants.EMOTIONS.BORED])
+	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/Happy.text = String.num(enemy.emotion_pts[CombatConstants.EMOTIONS.HAPPY])
+	
+	# Update triangle shape for moods
+	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/AnnoyedPoly.resize(float(enemy.emotion_pts[CombatConstants.EMOTIONS.ANNOYED]) / float(CombatConstants.MAX_EMOTION_PTS))
+	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/CringePoly.resize(float(enemy.emotion_pts[CombatConstants.EMOTIONS.CRINGE]) / float(CombatConstants.MAX_EMOTION_PTS))
+	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/OffendedPoly.resize(float(enemy.emotion_pts[CombatConstants.EMOTIONS.OFFENDED]) / float(CombatConstants.MAX_EMOTION_PTS))
+	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/BoredPoly.resize(float(enemy.emotion_pts[CombatConstants.EMOTIONS.BORED]) / float(CombatConstants.MAX_EMOTION_PTS))
+	$AllUI/TurnBasedCombatUI/EnemyMood/Progress/HappyPoly.resize(float(enemy.emotion_pts[CombatConstants.EMOTIONS.HAPPY]) / float(CombatConstants.MAX_EMOTION_PTS))
+	
 	$AllUI/TurnBasedCombatUI/EnemyCurrMood.text = "Enemy mood: " + enemy_combat.string_curr_mood()
 
 func play_player_turn():
@@ -117,6 +130,10 @@ func _on_specific_attack_pressed(attack: int):
 	# Disable UI options while attack is being undergone
 	$AllUI/TurnBasedCombatUI/ColorRect.visible = false
 	$AllUI/TurnBasedCombatUI/OptionsUI.visible = false
+	$AllUI/TurnBasedCombatUI/AttackOptionsUI.visible = false
+
+func _on_attack_back_pressed():
+	$AllUI/TurnBasedCombatUI/OptionsUI.visible = true
 	$AllUI/TurnBasedCombatUI/AttackOptionsUI.visible = false
 
 func _on_action_ended():

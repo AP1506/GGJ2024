@@ -111,10 +111,12 @@ func connect_hit_animation(attacker: Enemy):
 	attacker.animation_finished.connect(_on_hit, 4)
 
 func _on_hit():
-	frame = 0
-	play("hit_animation")
+	$AnimationPlayer.play("hit1")
 	
-	animation_finished.connect(_on_finished_hit, 4)
+	$AnimationPlayer.animation_finished.connect(_on_finished_hit2, 4)
 
 func _on_finished_hit():
+	action_ended.emit()
+
+func _on_finished_hit2(anim_name):
 	action_ended.emit()
