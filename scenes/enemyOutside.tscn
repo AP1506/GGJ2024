@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cecg035hpgo3e"]
+[gd_scene load_steps=14 format=3 uid="uid://lluhdexflb2i"]
 
 [ext_resource type="Script" path="res://scenes/enemyOutside.gd" id="1_4g010"]
 [ext_resource type="Texture2D" uid="uid://cxyndae24huwy" path="res://sprites/frog_64x64.png" id="2_gbr6c"]
