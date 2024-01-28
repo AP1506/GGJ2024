@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx6gdw1xpumgf"]
+
+[ext_resource type="Script" path="res://scenes/ActualGameScenes/0. Main Menu/main_menu.gd" id="1_cbu60"]
+[ext_resource type="PackedScene" uid="uid://dg6abniqosmte" path="res://scenes/ActualGameScenes/1. Gameplay/level_1.tscn" id="2_5c6mv"]
+[ext_resource type="FontFile" uid="uid://c1j8jnf76gyau" path="res://Fonts/WhisperADream.ttf" id="2_mkojp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_187xh"]
+bg_color = Color(0.305882, 0.686275, 0.513726, 1)
+
+[sub_resource type="Theme" id="Theme_b8ghc"]
+Button/styles/normal = SubResource("StyleBoxFlat_187xh")
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_cbu60")
+next_scene = ExtResource("2_5c6mv")
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundImage" type="Sprite2D" parent="."]
+
+[node name="Title" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_left = 397.0
+offset_top = 98.0
+offset_right = 726.0
+offset_bottom = 176.0
+theme_override_fonts/font = ExtResource("2_mkojp")
+theme_override_font_sizes/font_size = 75
+text = "Make Me Laugh"
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 514.0
+offset_top = 474.0
+offset_right = 608.0
+offset_bottom = 526.0
+theme = SubResource("Theme_b8ghc")
+text = "START"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

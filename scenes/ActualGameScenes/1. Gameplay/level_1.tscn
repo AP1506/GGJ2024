@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://dg6abniqosmte"]
+
+[ext_resource type="PackedScene" uid="uid://beasxf3c52vnr" path="res://objects/Floor.tscn" id="1_amp45"]
+[ext_resource type="PackedScene" uid="uid://6ib8bqklg620" path="res://scenes/Player.tscn" id="1_y1pin"]
+[ext_resource type="PackedScene" uid="uid://cplx7v1iripfb" path="res://objects/Wall.tscn" id="2_tim5p"]
+[ext_resource type="PackedScene" uid="uid://bn1kwjnbvqxhc" path="res://objects/Platform.tscn" id="3_t5ppc"]
+[ext_resource type="PackedScene" uid="uid://cecg035hpgo3e" path="res://scenes/enemyOutside.tscn" id="5_wgbkw"]
+
+[node name="Level1" type="Node2D"]
+position = Vector2(0, 3)
+
+[node name="Layout" type="Container" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Floor" parent="Layout" instance=ExtResource("1_amp45")]
+position = Vector2(-948, 1878)
+scale = Vector2(27.0998, -17.6271)
+
+[node name="Wall" parent="Layout" instance=ExtResource("2_tim5p")]
+position = Vector2(-1165, -4952)
+scale = Vector2(28.9487, 84.333)
+
+[node name="Wall2" parent="Layout" instance=ExtResource("2_tim5p")]
+position = Vector2(1557, -4952)
+scale = Vector2(31.374, 81.1786)
+
+[node name="Platform" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(-13, 830)
+scale = Vector2(1.28442, 0.834428)
+
+[node name="Platform3" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(-3, 314)
+scale = Vector2(0.98168, 1)
+
+[node name="Platform5" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(325, -8)
+scale = Vector2(17.7087, 1)
+
+[node name="Platform6" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(-80, -229)
+scale = Vector2(0.98168, 1)
+
+[node name="Platform7" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(311, -486)
+scale = Vector2(0.98168, 1)
+
+[node name="Platform8" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(-76, -785)
+scale = Vector2(0.98168, 1)
+
+[node name="Platform9" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(328, -1135)
+scale = Vector2(0.98168, 1)
+
+[node name="Platform11" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(333, -1458)
+scale = Vector2(0.98168, 1)
+
+[node name="Platform12" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(325, -1730)
+scale = Vector2(0.98168, 1)
+
+[node name="Platform13" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(325, -1999)
+scale = Vector2(0.98168, 1)
+
+[node name="Platform2" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(423, 601)
+scale = Vector2(6.39346, 1)
+
+[node name="Platform4" parent="Layout" instance=ExtResource("3_t5ppc")]
+position = Vector2(427, 131)
+scale = Vector2(7.90869, -58.0712)
+
+[node name="PlayerExample" parent="." instance=ExtResource("1_y1pin")]
+position = Vector2(780, 1076)
+scale = Vector2(0.706789, 1.03956)
+
+[node name="EnemyOutside" parent="." instance=ExtResource("5_wgbkw")]
+position = Vector2(1218, -2415)
+scale = Vector2(4.191, 4.191)
